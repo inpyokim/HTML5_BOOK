@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="en"/>
+
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<title>MY TO-DO</title>
+		
+		<link rel="stylesheet" href="html5reset.css" type="text/css" media="screen" charset="utf-8" />
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		<script>
+			// 1. 데이터베이스 열기 
+			var TODO = {};
+		    TODO.webdb = {};
+		    TODO.webdb.db = null;
+
+			TODO.webdb.open = function() {
+			  var dbSize = 5 * 1024 * 1024; // 5MB
+			  TODO.webdb.db = openDatabase("Todo", "1.0", "할일관리 프로그램", dbSize);
+			}
+			
+			TODO.webdb.onError = function(tx, e) {
+			  alert("에러발생: " + e.message);
+			}
+			
+			TODO.webdb.onSuccess = function(tx, r) {
+			  TODO.webdb.getAllTodoItems(loadTodoItems);
+			}
+			
+			// 2. 테이블 만들기
+			TODO.webdb.createTable = function() {
+			  var db = TODO.webdb.db;
+			  db.transaction(function(tx) {
+			    tx.executeSql("CREATE TABLE IF NOT EXISTS " +
+			                  "tb_todo(ID INTEGER PRIMARY KEY ASC, todo TEXT, cdate DATETIME)", []);
+			  });
+			}
+			
+			// 3. 테이블에 데이터 추가하기
+			TODO.webdb.addTodo = function(todoText) {
+			  var db = TODO.webdb.db;
+			  db.transaction(function(tx){
+			    var cdate = new Date();
+			    tx.executeSql("INSERT INTO tb_todo(todo, cdate) VALUES (?,?)",
+			        [todoText, cdate],
+			        TODO.webdb.onSuccess,
+			        TODO.webdb.onError);
+			   });
+			}
+			// 4. 데이터 가져오기
+			TODO.webdb.getAllTodoItems = function(renderFunc) {
+			  var db = TODO.webdb.db;
+			  db.transaction(function(tx) {
+			    tx.executeSql("SELECT * FROM tb_todo", [], renderFunc,
+			        TODO.webdb.onError);
+			  });
+			}
+			
+			// 5. 화면에 보여주기
+			function loadTodoItems(tx, rs) {
+			  var rowOutput = "";
+			  var todoItems = document.getElementById("todoItems");
+			  for (var i=0; i < rs.rows.length; i++) {
+			    rowOutput += renderTodo(rs.rows.item(i));
+			  }
+			
+			  todoItems.innerHTML = rowOutput;
+			}
+			function renderTodo(row) {
+			  return "<li><span class='todo'>" + row.todo + 
+			         " [<a href='javascript:void(0);' onclick='TODO.webdb.deleteTodo(" + 
+			         row.ID +");'>삭제</a>]</span></li>";
+			}
+			
+			// 6. 저장된 데이터 삭제하기
+			TODO.webdb.deleteTodo = function(id) {
+			  var db = TODO.webdb.db;
+			  db.transaction(function(tx){
+			    tx.executeSql("DELETE FROM tb_todo WHERE ID=?", [id],
+			        TODO.webdb.onSuccess,
+			        TODO.webdb.onError);
+			    });
+			}
+			
+			// 7. 초기실행 함수 선언
+			function init() {
+			  TODO.webdb.open();
+			  TODO.webdb.createTable();
+			  TODO.webdb.getAllTodoItems(loadTodoItems);
+			}
+			
+			function addTodo() {
+			  var todo_div = document.getElementById("todo");
+			  TODO.webdb.addTodo(todo_div.value);
+			  todo_div.value = "";
+			}
+		</script>
+	</head>
+	<body onload="init();">
+		<header id='pageHeader'>
+			MY TO-DO
+		</header>
+		<section id='list' class='selected'>
+			<div id='toolbar'>
+				<ul id='tools'>
+					<li id='addContactItem'><a href="#" onclick="addTodo();">+</a></li>
+					<li id='searchItem'>
+					   <input type="text" id="todo" name="todo" placeholder="할일은 무엇인가요?"/>
+					</li>
+				</ul>
+			</div>
+			<ul id='todoItems'>
+				
+			</ul>
+		</section>
+	</body>
+</html>

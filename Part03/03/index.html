@@ -1,0 +1,76 @@
+<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> -->
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="ko" />
+		
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
+        
+        <link rel="apple-touch-icon-precomposed" href="../../Resource/images/tweetline_and.png" />
+		<title>트윗라인</title>
+        
+
+		<link rel="stylesheet" href="html5reset.css" type="text/css" media="screen" charset="utf-8" />
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
+        
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+       	<script type="text/javascript" charset="utf-8">
+			
+			$(document).ready(function() {
+				// 1. jQuery 로 트윗 호출 함수 만들기
+			});
+			
+			$(document).ready(function() {
+				// 2. jQuery 로 만든 Ajax 함수 호출하기
+			});
+
+			
+			$(document).ready(function() {
+				$('#navList > li').click(function(){
+					// 기존에 선택된 메뉴의 스타일을 제거합니다.
+					$('#navList > li').removeClass('selected');
+					// 지금 선택된 메뉴에 스타일을 추가합니다.
+					$(this).addClass('selected');
+					
+					// 모든 섹션을 hide합니다.
+					$("section").removeClass('selected');
+					
+					// 현재 섹션만 show합니다.
+					if(this.id == 'idHome'){
+						$('#home').addClass('selected');
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+    <div  id='page'>
+		<header>
+			트윗라인
+		</header>
+		<nav>
+			<ul id='navList'>
+				<li id='idHome' class='selected' ></li>
+				<li id='idMentions'></li>
+				<li id='idFavo'></li>
+				<li id='idMsg'></li>
+				<li id='idSrch'></li>
+			</ul>
+		</nav>
+
+		<section id='home'>
+			<ul class='tweets'  id='tweetsList'>
+			</ul>
+		</section>
+        </div>
+	</body>
+</html>
+
+<script>
+if(navigator.userAgent.match(/Android/i)){
+    window.scrollTo(0,1);
+ }
+</script>

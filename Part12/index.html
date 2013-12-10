@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" manifest="cache.manifest">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="ko" />
+		
+         <meta name="viewport" content="width=device-width; height=device-height; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+        
+        <link rel="apple-touch-icon-precomposed" href="./resource/images/icon.png" />
+        <link rel="apple-touch-startup-image" href="./resource/images/intro.png">
+		<title>RageBird</title>
+        
+
+		<link rel="stylesheet" href="html5reset.css" type="text/css" media="screen" charset="utf-8" />
+		<link rel="stylesheet" href="add2home.css" type="text/css" media="screen" charset="utf-8" />
+        <link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8" />
+        
+	    <script src="http://www.html5canvastutorials.com/libraries/kinetic-v3.10.2.js"></script>
+	    
+	    <script src="game.js"></script>
+	    
+	    <script src="script.js"></script>
+		
+		<script type="application/javascript" src="add2home.js"></script>	
+		
+    	
+	</head>
+	<body onload="preInit();">
+		<div id="all">
+			<div id="desktop"></div>
+	        <div id="noticeRotate"></div>
+	        <div id="game"></div>
+	    </div>
+
+	    <audio src='./Resource/audio/go.mp3'>
+			Your browser does not support the audio tag.
+		</audio>
+		<audio src='./Resource/audio/hit.mp3'>
+			Your browser does not support the audio tag.
+		</audio>
+		<audio src='./Resource/audio/clear.mp3'>
+			Your browser does not support the audio tag.
+		</audio>
+	</body>
+</html>
+
+<script>
+if(navigator.userAgent.match(/Android/i)){
+    window.scrollTo(0,1);
+ }
+</script>

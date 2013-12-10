@@ -1,0 +1,115 @@
+<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> -->
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="ko" />
+		
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
+        
+        <link rel="apple-touch-icon-precomposed" href="../../Resource/images/tweetline_and.png" />
+		<title>트윗라인</title>
+        
+
+		<link rel="stylesheet" href="html5reset.css" type="text/css" media="screen" charset="utf-8" />
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
+        
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+       	<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$.callAjax = function(apiUrl) {
+					var requestUrl = '../../Common/curl.php?apiUrl=' + escape(apiUrl);
+
+					$.ajax({
+						url:requestUrl,
+						type:'GET',
+						error: function(){
+							alert("Ajax Loading Error");
+						},
+						success: function(data){
+							var results = $.parseJSON(data);
+							for(var resultId in results.statuses) {
+								var otwit = results.statuses[resultId];
+								
+								// 유저 정보 얻기
+								var name = otwit.from_user;
+								var text = otwit.text;
+								var imageUrl = otwit.profile_image_url;
+								
+								// <li><div> 만들기
+								$("#tweetsList").append("<li/>")
+									.find("li:last").append("<div/>");
+								
+								// 유저 이미지 <img> 추가
+								$("#tweetsList").find("li:last > div:last").append("<img/>");
+								$("#tweetsList").find("li:last > div:last > img").attr('src', imageUrl).attr('alt',name).attr('class', 'user-image').attr('onClick', "alert('" + name + "')");
+	
+								// 유저 이름 <span> 추가
+								$("#tweetsList").find("li:last > div:last").append("<span/>");
+								$("#tweetsList").find("li:last > div:last > span:last").text(name).attr('class', 'username');
+
+								
+								// 트윗 내용 <span>
+								$("#tweetsList").find("li:last > div:last").append("<span/>");
+								$("#tweetsList").find("li:last > div:last > span:last").text(text).attr('class', 'message');
+							}
+						}
+						
+					});
+				};
+			});
+			
+			$(document).ready(function() {
+				var apiUrl = 'https://api.twitter.com/1.1/search/tweets.json?q=html5&lang=ko';		
+				$.callAjax(apiUrl);
+			});
+
+			
+			$(document).ready(function() {
+				$('#navList > li').click(function(){
+					// 기존에 선택된 메뉴의 스타일을 제거합니다.
+					$('#navList > li').removeClass('selected');
+					// 지금 선택된 메뉴에 스타일을 추가합니다.
+					$(this).addClass('selected');
+					
+					// 모든 섹션을 hide합니다.
+					$("section").removeClass('selected');
+					
+					// 현재 섹션만 show합니다.
+					if(this.id == 'idHome'){
+						$('#home').addClass('selected');
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+    <div  id='page'>
+		<header>
+			트윗라인
+		</header>
+		<nav>
+			<ul id='navList'>
+				<li id='idHome' class='selected' ></li>
+				<li id='idMentions'></li>
+				<li id='idFavo'></li>
+				<li id='idMsg'></li>
+				<li id='idSrch'></li>
+			</ul>
+		</nav>
+
+		<section id='home'>
+			<ul class='tweets'  id='tweetsList'>
+			</ul>
+		</section>
+        </div>
+	</body>
+</html>
+
+<script>
+if(navigator.userAgent.match(/Android/i)){
+    window.scrollTo(0,1);
+ }
+</script>

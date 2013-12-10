@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="en"/>
+
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<title>트윗 주소록</title>
+		
+		<link rel="stylesheet" href="html5reset.css" type="text/css" media="screen" charset="utf-8" />
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		<script src='script.js' type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<header id='pageHeader'>
+			트윗 주소록
+		</header>
+		<section id='list' class='selected'>
+			<div id='toolbar'>
+				<ul id='tools'>
+					<li id='addContactItem'>+</li>
+					<li id='searchItem'>
+						<form name='sf' id='sf'>
+							<input id='searchField' type='text' />
+						</form>
+					</li>
+				</ul>
+			</div>
+			<ul id='contactsList'>
+				<li id='izie' class='contact'>
+					<header>
+						<img src='https://twimg0-a.akamaihd.net/profile_images/1868106742/IMG_2295_reasonably_small.jpg' alt='Matthew, Chang' />
+						<span class='fullName'>메튜장</span>
+					</header>
+					<div class='details'>
+						<span class=''>트위터:</span>
+						<span class=''>핸드폰 번호:</span>
+						<span class=''>나이:</span>
+						<span class=''>Email:</span>
+						<span class=''>URL:</span>
+					</div>	
+				</li>
+				<li>메튜 벨라미</li>
+				<li>크리스 휴</li>
+				<li>메튜 베네스터</li>
+				<li>안철수</li>
+			</ul>
+		</section>
+		<section id='contactForm' class=''>
+			<form name='cf' id='cf'>
+				<div>
+					<label for='fullName'>이름</label>
+					<input type='text' id='fullName' />
+				</div>
+				<div>
+					<label for='twitterUserName'>트윗 ID</label>
+					<input type="text" id="twitterUserName" />
+				</div>
+				<div>
+					<label for='phoneNumber'>핸드폰번호</label>
+					<input type='text' id='phoneNumber' />
+				</div>
+				<div>
+					<label for='age'>나이</label>
+					<input type="text" id="age" />
+				</div>
+				<div>
+					<label for='email'>Email</label>
+					<input type="text" id="email" />
+				</div>
+				<div>
+					<label for='url'>URL</label>
+					<input type="text" id="url" />
+				</div>
+
+				<button id='cancelButton'>취소</button>
+				<input type='submit' value='주소록에 추가' />
+			</form>
+		</section>
+	</body>
+</html>

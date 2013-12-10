@@ -1,0 +1,25 @@
+CACHE MANIFEST
+
+#version 0.8
+
+index.html
+html5reset.css
+style.css
+script.js
+game.js
+add2home.css
+add2home.js
+
+./Resource/audio/clear.mp3
+./Resource/audio/go.mp3
+./Resource/audio/hit.mp3
+./resource/images/background.png
+./resource/images/bird.png
+./resource/images/btnAdd.png
+./resource/images/icon.png
+./resource/images/intro.png
+./resource/images/pig.png
+./resource/images/rotate.png
+./resource/images/smartonly.png
+
+http://www.html5canvastutorials.com/libraries/kinetic-v3.10.2.js

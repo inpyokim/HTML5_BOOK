@@ -1,0 +1,17 @@
+CACHE MANIFEST
+
+#version 0.1
+
+index.html
+html5reset.css
+style.css
+script.js
+../../resource/images/icons/icons/53-house.png
+../../resource/images/icons/icons/09-chat2.png
+../../resource/images/icons/icons/28-star.png
+../../resource/images/icons/icons/08-chat.png
+../../resource/images/icons/icons/06-magnifying-glass.png
+http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
+
+NETWORK:
+../../Common/curl.php

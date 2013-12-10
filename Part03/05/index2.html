@@ -1,0 +1,191 @@
+<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> -->
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="ko" />
+		
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
+        
+        <link rel="apple-touch-icon-precomposed" href="../../Resource/images/tweetline_and.png" />
+		<title>트윗라인</title>
+        
+
+		<link rel="stylesheet" href="html5reset.css" type="text/css" media="screen" charset="utf-8" />
+		<link rel="stylesheet" href="style2.css" type="text/css" media="screen" charset="utf-8">
+        
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+       	<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$.callAjax = function(apiUrl) {
+					var requestUrl = '../../Common/curl.php?apiUrl=' + escape(apiUrl);
+
+					$.ajax({
+						url:requestUrl,
+						type:'GET',
+						error: function(){
+							alert("Ajax Loading Error");
+						},
+						success: function(data){
+							var results = $.parseJSON(data);
+							for(var resultId in results.statuses) {
+								var otwit = results.statuses[resultId];
+								
+								// 유저 정보 얻기
+								var name = otwit.user.screen_name;
+								var twit_id = otwit.id;
+								var text = otwit.text;
+								var imageUrl = otwit.user.profile_image_url;
+								var screen_name = otwit.user.screen_name;
+								var location = otwit.user.location;
+								var followers_count = otwit.user.followers_count;
+								var friends_count = otwit.user.friends_count;
+								
+								// <li><div> 만들기
+								$("#tweetsList").append("<li/>")
+									.find("li:last").append("<div/>");
+								
+								// 유저 이미지 <img> 추가
+								$("#tweetsList").find("li:last > div:last").append("<img/>");
+								$("#tweetsList").find("li:last > div:last > img:last").attr('src', imageUrl).attr('alt',name).attr('class', 'user-image').attr('name',name).attr('screen_name',screen_name).attr('location',location).attr('followers_count',followers_count).attr('friends_count',friends_count);
+								
+								//5. 이미지 클릭시 $.setProfile() 함수 연결
+								$("#tweetsList").find("li:last > div:last > img:last").click(function() {
+									$.showProfile(
+										this.src,
+										this.name,
+										this.attributes[4].value,
+										this.attributes[5].value,
+										this.attributes[6].value,
+										this.attributes[7].value
+									);
+								});
+								
+								// 유저 이름 <span> 추가
+								$("#tweetsList").find("li:last > div:last").append("<span/>");
+								$("#tweetsList").find("li:last > div:last > span:last").text(name).attr('class', 'username');
+
+								
+								// 트윗 내용 <span>
+								$("#tweetsList").find("li:last > div:last").append("<span/>");
+								$("#tweetsList").find("li:last > div:last > span:last").text(text).attr('class', 'message');
+							}
+						}
+						
+					});
+				};
+				
+				// 1. 사용자 정보를 보여주는 함수 추가
+				$.showProfile = function(profile_image_url,name,screen_name,location,followers_count,friends_count){
+					// 모든 네비게이션 목록을 hide합니다.
+					$.clearAllNavItems();
+					$.setProfile(profile_image_url,name,screen_name,location,followers_count,friends_count);
+				}
+				
+				// 2. 유저의 상세정보를 얻는 함수 추가
+				$.setProfile = function(profile_image_url,name,screen_name,location,followers_count,friends_count) {
+					// 프로필 이미지 추가
+					$("#profileImage").attr('src',profile_image_url).attr('alt',name);
+					
+					// 이름 추가
+					$("#name").text(name);
+					
+					// ID 추가
+					$("#screenName").text('@' + screen_name);
+					
+					// 위치정보 추가
+					$("#location").text(location);
+					
+					// 팔로워 수 추가
+					$("#followersCount").text('팔로워 :'+followers_count);
+					
+					// 팔로잉 수 추가
+					$("#friendsCount").text('팔로잉 :'+friends_count);
+					
+					// 프로필 화면으로 전환
+					$.switchToSectionWithId('profile');
+				}
+				
+				// 3. 화면전환 함수 만들기
+				$.switchToSectionWithId = function(sid){
+					$.hideAllSections();
+					$.showSectionWithId(sid);
+				}
+				
+				$.hideAllSections = function(){
+					$("section").removeClass('selected');
+				}
+				
+				$.clearAllNavItems = function() {
+					$("#navList > li").removeClass('selected');
+				}
+				
+				// 4. 유저 상세정보 섹션 표시함수 추가
+				$.showSectionWithId = function(sid){
+					$("#"+sid).addClass('selected');
+				}
+				
+			});
+			
+			$(document).ready(function() {
+				var apiUrl = 'https://api.twitter.com/1.1/search/tweets.json?q=html5&lang=ko';		
+				$.callAjax(apiUrl);
+			});
+
+			
+			$(document).ready(function() {
+				$('#navList > li').click(function(){
+					// 기존에 선택된 메뉴의 스타일을 제거합니다.
+					$('#navList > li').removeClass('selected');
+					// 지금 선택된 메뉴에 스타일을 추가합니다.
+					$(this).addClass('selected');
+					
+					// 모든 섹션을 hide합니다.
+					$("section").removeClass('selected');
+					
+					// 현재 섹션만 show합니다.
+					if(this.id == 'idHome'){
+						$('#home').addClass('selected');
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+    <div  id='page'>
+		<header>
+			트윗라인
+		</header>
+		<nav>
+			<ul id='navList'>
+				<li id='idHome' class='selected' ></li>
+				<li id='idMentions'></li>
+				<li id='idFavo'></li>
+				<li id='idMsg'></li>
+				<li id='idSrch'></li>
+			</ul>
+		</nav>
+
+		<section id='home'  class='selected'>
+			<ul class='tweets'  id='tweetsList'>
+			</ul>
+		</section>
+		<section id='profile' class=''>
+			<img id='profileImage' />
+			<span id='name'></span>
+			<span id='screenName'></span>
+			<span id='location'></span>
+			<span id='followersCount'></span>
+			<span id='friendsCount'></span>
+		</section>
+        </div>
+	</body>
+</html>
+
+<script>
+if(navigator.userAgent.match(/Android/i)){
+    window.scrollTo(0,1);
+ }
+</script>

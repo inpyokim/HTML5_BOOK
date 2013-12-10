@@ -1,0 +1,66 @@
+<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> -->
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="ko" />
+		
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
+        
+        <link rel="apple-touch-icon-precomposed" href="../../Resource/images/tweetline_and.png" />
+		<title>트윗라인</title>
+        
+
+		<link rel="stylesheet" href="html5reset.css" type="text/css" media="screen" charset="utf-8" />
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
+        
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        
+        <!-- 1. 미디어 쿼리 추가 -->
+        <link rel="stylesheet" media="screen and (orientation:landscape)" 
+			href="ipad-landscape.css">
+		
+		<script src='script.js' type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+    <div  id='page'>
+		<header>
+			트윗라인
+		</header>
+		<nav>
+			<ul id='navList'>
+				<li id='idHome' class='selected' ></li>
+				<li id='idMentions'></li>
+				<li id='idFavo'></li>
+				<li id='idMsg'></li>
+				<li id='idSrch'></li>
+			</ul>
+		</nav>
+
+		<section id='home'  class='selected'>
+			<ul class='tweets'  id='tweetsList'>
+			</ul>
+		</section>
+		<section id='profile' class=''>
+			<img id='profileImage' />
+			<span id='name'></span>
+			<span id='screenName'></span>
+			<span id='location'></span>
+			<span id='followersCount'></span>
+			<span id='friendsCount'></span>
+		</section>
+		
+		<section id='map' class=''>
+			<div id='mapCanvas' style='width: 100%; height: 100%;'>지도를 추가하세요!</div>
+		</section>
+        </div>
+	</body>
+</html>
+
+<script>
+if(navigator.userAgent.match(/Android/i)){
+    window.scrollTo(0,1);
+ }
+</script>

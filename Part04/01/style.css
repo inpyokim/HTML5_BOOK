@@ -1,0 +1,229 @@
+@font-face {
+	font-family: SeoulHangangEB;
+	src: url('./SeoulHangangEB.otf') format('opentype');
+}
+body {
+	font-family: "Helvetica";
+}
+ul {
+	list-style-type: none;
+}
+/*
+	헤더 <header>
+*/
+header {
+	width: 100%;
+	height: 44px;
+	
+	background-image: -webkit-gradient(
+		linear, 
+		0% 0%, 
+		0% 100%, 
+		from(#43a1cc), 
+		to(#43a1cc), 
+		color-stop(.5,#296e8e)
+	);
+	font-family: SeoulHangangEB, Malgun Gothic;
+	color:#ffffff;
+	
+	text-align: center;
+	padding-top: 10px;
+	
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+
+	
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+/* 
+	메뉴 <nav>
+*/
+nav {
+	height: 44px;
+	width: 100%;
+	
+	background-image: -webkit-gradient(
+			linear, 
+			0% 0%, 
+			0% 100%, 
+			from(#43a1cc), 
+			to(#43a1cc), 
+			color-stop(.5,#a6dffa)
+		);
+}
+nav ul {
+	height: 100%;
+	width: 320px;
+	margin-left: auto;
+	margin-right: auto;
+}
+nav ul li {
+	display: inline-block;
+	float: left;
+	width: 64px;
+	height: 100%;
+	border: 1px solid #307d9e;
+	
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#idHome {
+	background-image: url('../../resource/images/icons/icons/53-house.png');
+}
+#idHome.selected {
+	background-image: url('../../resource/images/icons/icons/53-house.png'),
+		-webkit-gradient(
+				linear, 
+				0% 0%, 
+				0% 100%, 
+				from(#76aec8), 
+				to(#76aec8), 
+				color-stop(.5,#ffffff)
+			);
+}
+
+#idMentions {
+	background-image: url('../../resource/images/icons/icons/09-chat2.png');
+}
+#idMentions.selected {
+	background-image: url('../../resource/images/icons/icons/09-chat2.png'),
+		-webkit-gradient(
+				linear, 
+				0% 0%, 
+				0% 100%, 
+				from(#76aec8), 
+				to(#76aec8), 
+				color-stop(.5,#ffffff)
+			);
+}
+
+#idFavo {
+	background-image: url('../../resource/images/icons/icons/28-star.png');
+}
+#idFavo.selected {
+	background-image: url('../../resource/images/icons/icons/28-star.png'),
+		-webkit-gradient(
+				linear, 
+				0% 0%, 
+				0% 100%, 
+				from(#76aec8), 
+				to(#76aec8), 
+				color-stop(.5,#ffffff)
+			);
+}
+
+#idMsg {
+	background-image: url('../../resource/images/icons/icons/08-chat.png');
+}
+#idMsg.selected {
+	background-image: url('../../resource/images/icons/icons/08-chat.png'),
+		-webkit-gradient(
+				linear, 
+				0% 0%, 
+				0% 100%, 
+				from(#76aec8), 
+				to(#76aec8), 
+				color-stop(.5,#ffffff)
+			);
+}
+
+#idSrch {
+	background-image: url('../../resource/images/icons/icons/06-magnifying-glass.png');
+}
+#idSrch.selected {
+	background-image: url('../../resource/images/icons/icons/06-magnifying-glass.png'),
+		-webkit-gradient(
+				linear, 
+				0% 0%, 
+				0% 100%, 
+				from(#76aec8), 
+				to(#76aec8), 
+				color-stop(.5,#ffffff)
+			);
+}
+
+/*
+	Section 애니메이션
+*/
+section {
+	-webkit-transition-property: opacity;
+	-webkit-transition-delay: 0.5s;
+	-webkit-transition-duration: 0.5s;
+	-webkit-transition-timing-function: ease;
+	
+	z-index: 0;
+	position: absolute;
+	top: 88px;
+	width: 100%;
+	background-color: #ffffff;
+	display: block;
+	opacity: 0;
+}
+section.selected {
+	z-index: 100;
+	opacity: 1;
+}
+
+/*
+	리스트 <section>
+*/
+section#home ul.tweets li {
+	min-height: 56px;
+	min-width: 320px;
+	-webkit-box-sizing: border-box;
+	padding: 4px;
+}
+section#home ul.tweets li img.user-image {
+	width: 48px;
+	height: 48px;
+}
+
+section#home ul.tweets li:nth-child(odd) {
+	background-image:  -webkit-gradient(
+		linear, 
+		0% 0%, 
+		0% 100%, 
+		from(#bfebff), 
+		to(#e0f5ff), 
+		color-stop(.7,#e0f5ff)
+	);
+}
+
+section#home ul.tweets li img {
+	float: left;
+	padding-right: 5px;
+}
+section#home ul.tweets li span.username {
+	display: block;
+}
+
+/*
+    프로필 <section>
+*/
+section#profile {
+	-webkit-box-sizing: border-box;
+	padding: 4px;
+	background-color: #ffffff;
+}
+section#profile img {
+	
+}
+section#profile span {
+	display: block;
+	padding-left: 60px;
+}
+
+section#profile #profileImage {
+	float: left;
+}
+
+section#profile #statusText,
+section#profile #followersCount {
+	padding-top: 5px;
+}

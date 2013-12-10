@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="en"/>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>Video &amp; Audio</title>
+		
+		<link rel="stylesheet" href="html5reset.css" type="text/css" media="screen" charset="utf-8" />
+		<link rel="stylesheet" href="style2.css" type="text/css" media="screen" charset="utf-8">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		
+		<style>
+			section#video video {
+				position: relative;
+				top: 300px;
+				left: 140px;
+				width: 360px;
+				height: 240px;
+				
+				/* 2. 비디오 회전 추가하기 */
+			}
+		</style>
+		
+		<script type="text/javascript">
+			
+		$(document).ready(function() {
+			$(window).load(function() {
+				$.addEventListeners();
+			});
+			$.addEventListeners = function() {
+				$("#liVideo").click(function() {
+					$.showVideo();
+				});
+				
+				$("#liAudio").click(function() {
+					$.showAudio();
+				});
+				
+				$("#imgPlay").click(function() {
+					$("#liPlay").attr('class','selected');
+					$("#liPause").attr('class','');
+				});
+				
+				$("#imgPause").click(function() {
+					$("#liPlay").attr('class','');
+					$("#liPause").attr('class','selected');
+				});
+			}
+			
+			$.showVideo = function() {
+				$("#audio").attr('class','');
+				$("#video").attr('class','selected');
+			}
+			
+			$.showAudio = function() {
+				$("#audio").attr('class','selected');
+				$("#video").attr('class','');
+			}
+		});
+		</script>
+	</head>
+	<body>
+		<header id='pageHeader'>
+			미디어 플레이어
+		</header>
+		<div id='toolbar'>
+			<ul>
+				<li id='liVideo'></li>
+				<li id='liAudio'></li>
+			</ul>
+		</div>
+		<section id='video' class='selected'>
+			<!-- 1. 비디오 태그 추가하기-->
+		</section>
+		<section id='audio' class=''>
+		</section>
+	</body>
+</html>

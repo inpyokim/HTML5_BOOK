@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="ko" />
+		
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
+        
+        <link rel="apple-touch-icon-precomposed" href="../../Resource/images/tweetline_and.png" />
+		<title>트윗라인</title>
+        
+
+		<link rel="stylesheet" href="html5reset.css" type="text/css" media="screen" charset="utf-8" />
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
+        
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        
+		<script src='script.js' type="text/javascript" charset="utf-8"></script>
+		<script>
+			function onload() {
+				if(document.body.className == 'connected'){
+					document.getElementById("fbstatus").innerHTML = "Logout";
+				}else{
+					document.getElementById("fbstatus").innerHTML = "Login";
+				}
+			}
+			function loginUser() {
+				if(document.getElementById("fbstatus").innerHTML == "Login"){    
+		     		FB.login(function(response) { }, {scope:'email'});
+		     	}else{
+		     		FB.logout();
+		     		document.getElementById("fbstatus").innerHTML = "Login";
+		     	}     
+		     }
+			     
+			  window.fbAsyncInit = function() {
+			    FB.init({
+			      appId      : '178980225640231', // App ID
+			      channelUrl : '//192.168.0.34/Part06/channel.html', // Channel File
+			      status     : true, // check login status
+			      cookie     : true, // enable cookies to allow the server to access the session
+			      xfbml      : true  // parse XFBML
+			    });
+			
+			    FB.Event.subscribe('auth.statusChange', handleStatusChange);
+			  };
+			
+			  // Load the SDK Asynchronously
+			  (function(d){
+			     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+			     if (d.getElementById(id)) {return;}
+			     js = d.createElement('script'); js.id = id; js.async = true;
+			     js.src = "//connect.facebook.net/en_US/all.js";
+			     ref.parentNode.insertBefore(js, ref);
+			   }(document));
+			   
+			   function handleStatusChange(response) {
+			     document.body.className = response.authResponse ? 'connected' : 'not_connected';
+			
+			     if (response.authResponse) {
+			       console.log(response);
+			       updateUserInfo(response);
+			     }
+			   }
+			   
+			    function updateUserInfo(response) {
+			     FB.api('/me', function(response) {
+			     	document.getElementById('user-info').innerHTML = '<img src="https://graph.facebook.com/' + response.id + '/picture" width="20" height="20"">&nbsp;' + response.name +"님 환영합니다!";
+			     	document.getElementById('fbstatus').innerHTML = "Logout";
+			     });
+			   }
+			   
+			   function publishStory(twtid,text,url,picture) {
+				  FB.ui({
+				    method: 'feed',
+				    name: '[트윗라인]@'+twtid+"님의 트윗 공유",
+				    caption: '트윗라인에서 공유한 트윗입니다.',
+				    description: text,
+				    link: url,
+				    picture: picture
+				  }, 
+				  function(response) {
+				    console.log('publishStory response: ', response);
+				  });
+				  return false;
+				}
+			   
+			   function getUserFriends() {
+				   FB.api('/me/friends&fields=name,picture', function(response) {
+				     console.log('Got friends: ', response);
+				
+				     if (!response.error) {
+				       var markup = '';
+				
+				       var friends = response.data;
+				
+				       for (var i=0; i < friends.length && i < 25; i++) {
+				         var friend = friends[i];
+				
+				         markup += '<li><img src="' + friend.picture.data.url + '" id="user-image"> <span id="username">' + friend.name + '</span></li>';
+				       }
+						document.getElementById('home').setAttribute('class','');
+						document.getElementById('friends').setAttribute('class','selected');
+				       document.getElementById('friendList').innerHTML = markup;
+				     }
+				   });
+				 }
+			</script>
+	</head>
+	<body onload="onload()">
+    <div  id='page'>
+		<header>
+			<span id="title">트윗라인</span><span id="fblogin"> <a href="#" onclick="loginUser();" class="login-button">
+		          <span  id="fbstatus">Login</span></a>
+			</span>
+		</header>
+		<nav>
+			<ul id='navList'>
+				<li id='idHome' class='selected' ></li>
+				<li id='idMentions'></li>
+				
+			</ul>
+		</nav>
+		<div id="user-info" name="user-info"></div>
+		<div id="fb-root"></div>
+		<section id='home'  class='selected'>
+			<ul class='tweets'  id='tweetsList'>
+			</ul>
+		</section>
+		<section id='profile' class=''>
+			<img id='profileImage' />
+			<span id='name'></span>
+			<span id='screenName'></span>
+			<span id='location'></span>
+			<span id='followersCount'></span>
+			<span id='friendsCount'></span>
+		</section>
+		
+        </div>
+	</body>
+</html>
+
+<script>
+if(navigator.userAgent.match(/Android/i)){
+    window.scrollTo(0,1);
+ }
+</script>

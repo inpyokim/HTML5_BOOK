@@ -1,0 +1,70 @@
+<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> -->
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="ko" />
+		
+        <!-- 1. 뷰포트 설정 -->
+        
+		<title>트윗라인</title>
+        
+        <!-- 2. CSS Reset 추가 -->
+		
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
+        <script type="text/javascript" charset="utf-8">
+			function fnSelected(id) {
+				// 모든 Nav 아이템을 삭제합니다.
+				clearSelected();
+				
+				// 선택한 Nav 아이템의 클래스를 selected로 바꿉니다.
+				document.getElementById(id).setAttribute('class','selected');
+			}
+			
+			function clearSelected() {
+				var navList = document.getElementById('navList');
+				
+				for (var i = 0; i < navList.children.length; i++) {
+					var li = navList.children[i];
+					li.setAttribute('class', '');
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<header>
+			트윗라인
+		</header>
+		<nav>
+			<ul id='navList'>
+				<li id='idHome' onclick='fnSelected(this.id)' class='selected' ></li>
+				<li id='idMentions' onclick='fnSelected(this.id)'></li>
+				<li id='idFavo' onclick='fnSelected(this.id)'></li>
+				<li id='idMsg' onclick='fnSelected(this.id)'></li>
+				<li id='idSrch' onclick='fnSelectedthis.id()'></li>
+			</ul>
+		</nav>
+
+		<section id='home'>
+			<ul class='tweets'>
+				<li>
+					<div>
+						<img class='user-image' alt='MatthewChang'
+					 	 	 src='profile.png' />
+						<span class='username'>MatthewChang</span>
+						<span class='message'>나의 첫 트위터 앱</span>
+					</div>
+				</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</section>
+	</body>
+</html>

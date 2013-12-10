@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="en"/>
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>Video &amp; Audio</title>
+		
+		<link rel="stylesheet" href="html5reset.css" type="text/css" media="screen" charset="utf-8" />
+		<link rel="stylesheet" href="style2.css" type="text/css" media="screen" charset="utf-8">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		<style>
+			#progressBar {
+				border: 2px solid #000000;
+				position: relative;
+				top: 20px;
+				left: 10px;
+				width: 300px;
+				height: 20px;
+			}
+			#progressIndicator {
+				height: 100%;
+				width: 0%;
+				background-color: #FFFFFF;
+				z-index:100;
+			}
+		</style>
+		<script type="text/javascript">
+		
+		$(document).ready(function() {
+			$(window).load(function() {
+				$.addEventListeners();
+			});
+			$.addEventListeners = function() {
+				$("#liVideo").click(function() {
+					$.showVideo();
+				});
+				
+				$("#liAudio").click(function() {
+					$.showAudio();
+				});
+				
+				// 1. 타이머 추가하기
+				$("audio").bind('timeupdate', function(event) {
+					var progressIndicator = document.getElementById('progressIndicator');
+					var progress = parseInt(((this.currentTime / this.duration) * 100));
+				  	progressIndicator.style.width = (progress + '%');
+				});
+				
+				$("#imgPlay").click(function() {
+					$("audio")[0].play();
+					$("#liPlay").attr('class','selected');
+					$("#liPause").attr('class','');
+					$("#liNext").attr('class','');
+					$("#liPrev").attr('class','');
+				});
+				
+				$("#imgPause").click(function() {
+					$("audio")[0].pause();
+					$("#liPlay").attr('class','');
+					$("#liPause").attr('class','selected');
+					$("#liNext").attr('class','');
+					$("#liPrev").attr('class','');
+				});
+				
+				$("#imgNext").click(function() {
+					$("#liPlay").attr('class','');
+					$("#liPause").attr('class','');
+					$("#liNext").attr('class','selected');
+					$("#liPrev").attr('class','');
+				});
+				
+				$("#imgPrev").click(function() {
+					$("#liPlay").attr('class','');
+					$("#liPause").attr('class','');
+					$("#liNext").attr('class','');
+					$("#liPrev").attr('class','selected');
+				});
+			}
+			
+			
+			$.showVideo = function() {
+				$("#audio").attr('class','');
+				$("#video").attr('class','selected');
+			}
+			
+			$.showAudio = function() {
+				$("#audio").attr('class','selected');
+				$("#video").attr('class','');
+			}
+		});
+		</script>
+	</head>
+	<body>
+		<header id='pageHeader'>
+			미디어 플레이어
+		</header>
+		<div id='toolbar'>
+			<ul>
+				<li id='liVideo'></li>
+				<li id='liAudio'></li>
+			</ul>
+		</div>
+		<section id='video' class='selected'>
+			<video id='rvideo'src='http://izectlab.com/html5/video/HelloWorld.mp4' controls>
+				Your browser does not support the video tag.
+			</video>
+		</section>
+		<section id='audio' class=''>
+			<audio src='../../Resource/audio/SlowBlues.mp3'>
+				Your browser does not support the audio tag.
+			</audio>
+			<div id='progressBar'><div id='progressIndicator'></div></div>
+			<div id='songLabel'>Slow Blues</div>
+			<ul id='controls'>
+				<li id='liPlay'><img id='imgPlay' src='../../Resource/images/radio_play.png' alt='Radio Play Button' /></li>
+				<li id='liPause'><img id='imgPause' src='../../Resource/images/radio_pause.png' alt='Radio Pause Button' /></li>
+				<li id='liPrev'><img id='imgPrev' src='../../Resource/images/radio_prev.png' alt='Radio Prev Button' /></li>
+				<li id='liNext'><img id='imgNext' src='../../Resource/images/radio_next.png' alt='Radio Next Button' /></li>
+			</ul>
+		</section>
+	</body>
+</html>

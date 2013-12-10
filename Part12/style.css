@@ -1,0 +1,61 @@
+canvas {
+	border: 0px solid #9C9898;
+}
+  
+body {
+	margin: 0;
+	padding: 0;
+	background: black;
+	font: bold 16px/20px "ArialRoundedMTBold";
+}
+@font-face {
+  font-family: 'Eater';
+  src: url('Eater-Regular.ttf');
+}
+    
+* {
+    position: absolute;
+    -webkit-tap-higlight-color: transparent;
+    -webkit-user-select: none;      
+}   
+  
+ #noticeRotate {
+    width: 480px;
+    height: 460px;
+    
+    opacity: 0;
+    background: black url(./Resource/images/rotate.png) center center no-repeat;
+    z-index: 5000;
+
+    -webkit-transition: opacity .3s ease;               
+    -webkit-transform: scale(1); /*  this will make the div in question layer-backed - we need this for speed! */
+ }  
+  
+    
+#desktop {
+    width: 100%;
+    height: 460px;
+    
+    opacity: 1;
+    background: black url(./Resource/images/smartonly.png) center center no-repeat;
+    z-index: 5000;
+
+    -webkit-transition: opacity .3s ease;               
+    -webkit-transform: scale(1); /*  this will make the div in question layer-backed - we need this for speed! */
+}  
+
+#game {
+    width: 480px;
+    height: 300px;
+    opacity: 0;
+}
+
+#all {
+    width: 480px;
+    height: 300px;
+    max-width: 480px;
+    max-height: 300px;
+
+    -webkit-transform-origin: top left;
+    -webkit-transform: scale(1); /*  this will make the div in question layer-backed - we need this for speed! */    
+}
