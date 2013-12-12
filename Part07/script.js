@@ -97,8 +97,9 @@ $(document).ready(function() {
 									alert("Ajax Loading Error");
 								},
 								success: function(data){
+									var me2 = $.parseJSON(data);
 									// 최신글 추가
-									$("#statusText").text("최근미투 :"+data[0].textBody);
+									$("#statusText").text("최근미투 :"+me2[0].textBody);
 									
 									// 프로필 화면으로 전환
 									$.switchToSectionWithId('profile');
