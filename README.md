@@ -18,3 +18,9 @@ HTML5_BOOK
 [이메일](matthew.chang@me.com)
 
 #Change Log
+
+#책 구매
+[Yes24](http://goo.gl/eA0awS)
+[교보문고](http://goo.gl/YL5KAM)
+[알라딘](http://goo.gl/l5Ptsk)
+[인터파크](http://goo.gl/eoRVfQ)
